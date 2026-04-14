@@ -14,9 +14,9 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['logo.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
         manifest: {
-          name: 'WiFi Time Keeper',
-          short_name: 'WiFi Keeper',
-          description: 'Control de tiempo y costos de sesiones WiFi',
+          name: 'Nauta PostPago',
+          short_name: 'Nauta PP',
+          description: 'Control de tiempo y costos de sesiones Nauta',
           theme_color: '#f7f9ff',
           background_color: '#f7f9ff',
           display: 'standalone',

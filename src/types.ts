@@ -1,9 +1,13 @@
 export interface Session {
   id: string;
   date: string;
-  duration: string;
-  cost: string;
-  status: 'complete' | 'active';
+  duration: number; // in seconds
+  cost: number;
 }
 
-export type NetworkStatus = 'validated' | 'required' | 'disconnected';
+export interface MonthlyConsolidation {
+  month: string;
+  totalHours: number;
+  totalCost: number;
+  date: string;
+}

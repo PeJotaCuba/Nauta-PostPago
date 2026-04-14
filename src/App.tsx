@@ -3,44 +3,46 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import TopBar from './components/TopBar';
 import BottomNav from './components/BottomNav';
 import Home from './components/Home';
 import HistoryView from './components/HistoryView';
 import LoginPortal from './components/LoginPortal';
+import { SessionProvider, useSession } from './SessionContext';
 
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated } = useSession();
 
   const isLogin = location.pathname === '/login';
   
   const getTitle = () => {
-    if (location.pathname === '/') return 'WiFi Time Keeper';
+    if (location.pathname === '/') return 'Nauta PostPago';
     if (location.pathname === '/history') return 'Historial de Sesiones';
     if (location.pathname === '/login') return 'Portal de Acceso';
-    return 'WiFi Time Keeper';
+    return 'Nauta PostPago';
   };
 
   return (
     <div className="min-h-screen bg-surface flex flex-col font-sans selection:bg-primary-fixed">
       <TopBar 
         title={getTitle()} 
-        showBack={isLogin}
+        showBack={isLogin && isAuthenticated}
         onBack={() => navigate(-1)}
         onRefresh={() => window.location.reload()}
       />
       
       <main className="flex-1 pt-16 pb-24 flex flex-col">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/history" element={<HistoryView />} />
-          <Route path="/login" element={<LoginPortal />} />
+          <Route path="/login" element={!isAuthenticated ? <LoginPortal /> : <Navigate to="/" />} />
+          <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
+          <Route path="/history" element={isAuthenticated ? <HistoryView /> : <Navigate to="/login" />} />
         </Routes>
       </main>
 
-      {!isLogin && <BottomNav />}
+      {isAuthenticated && !isLogin && <BottomNav />}
 
       {/* Background Decorative Elements */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -53,8 +55,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <SessionProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </SessionProvider>
   );
 }

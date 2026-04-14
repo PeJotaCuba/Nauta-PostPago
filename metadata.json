@@ -1,6 +1,6 @@
 {
-  "name": "WiFi Time Keeper",
-  "description": "A precision utility for tracking WiFi session time and costs, featuring a digital chronometer and session history.",
+  "name": "Nauta PostPago",
+  "description": "Control de tiempo y costos para cuentas Nauta con modalidad de postpago.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }
