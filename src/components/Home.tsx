@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { CheckCircle2, Power, Save, History, X, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { useSession } from '../SessionContext';
 
 export default function Home() {
+  const navigate = useNavigate();
   const { activeSessionSeconds, isSessionActive, stopSession, saveSession, logout } = useSession();
   const [showSaveModal, setShowSaveModal] = useState(false);
 
@@ -42,13 +44,13 @@ export default function Home() {
       </div>
 
       {/* Hero Metric Section */}
-      <div className="flex-1 flex flex-col items-center justify-center w-full py-8">
-        <div className="text-center mb-12">
-          <p className="text-primary font-semibold tracking-widest uppercase text-xs mb-4">Tiempo Conectado</p>
-          <h1 className="text-[72px] md:text-[96px] font-mono font-bold tracking-tighter text-on-surface timer-glow leading-none">
+      <div className="flex-1 flex flex-col items-center justify-center w-full py-4 md:py-8">
+        <div className="text-center mb-8 md:mb-12">
+          <p className="text-primary font-semibold tracking-widest uppercase text-[10px] md:text-xs mb-2 md:mb-4">Tiempo Conectado</p>
+          <h1 className="text-[60px] sm:text-[72px] md:text-[96px] font-mono font-bold tracking-tighter text-on-surface timer-glow leading-none">
             {formatTime(activeSessionSeconds)}
           </h1>
-          <p className="text-on-surface-variant mt-4 font-medium">
+          <p className="text-on-surface-variant mt-4 font-medium text-sm md:text-base">
             Costo actual: <span className="text-secondary font-bold font-mono">{((activeSessionSeconds / 3600) * 0.50).toFixed(2)} CUP</span>
           </p>
         </div>
@@ -58,23 +60,32 @@ export default function Home() {
           <div className="flex flex-col items-center gap-3">
             <button 
               onClick={handleCloseAccount}
-              className="w-24 h-24 rounded-full bg-gradient-to-br from-tertiary to-tertiary-container flex items-center justify-center text-white shadow-xl shadow-tertiary/20 hover:scale-105 transition-all active:scale-90 group"
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-tertiary to-tertiary-container flex items-center justify-center text-white shadow-xl shadow-tertiary/20 hover:scale-105 transition-all active:scale-90 group"
             >
-              <Power className="w-10 h-10 group-hover:scale-110 transition-transform" />
+              <Power className="w-8 h-8 md:w-10 md:h-10 group-hover:scale-110 transition-transform" />
             </button>
-            <span className="text-xs font-bold text-on-surface-variant tracking-wider uppercase">Cerrar Cuenta</span>
+            <span className="text-[10px] md:text-xs font-bold text-on-surface-variant tracking-wider uppercase">Cerrar Cuenta</span>
           </div>
         </div>
       </div>
 
       {/* Metadata Card */}
-      <div className="w-full mt-12 bg-surface-container-lowest border border-outline-variant/15 rounded-xl p-4 flex items-center justify-between shadow-sm">
+      <div className="w-full mt-8 bg-surface-container-lowest border border-outline-variant/15 rounded-xl p-4 flex items-center justify-between shadow-sm">
         <div className="flex items-center gap-3">
           <History className="w-5 h-5 text-on-surface-variant" />
           <span className="text-on-surface-variant font-medium text-sm">Tarifa</span>
         </div>
         <span className="text-on-surface font-mono font-bold">0.50 CUP / Hora</span>
       </div>
+
+      {/* Quick History Link */}
+      <button 
+        onClick={() => navigate('/history')}
+        className="mt-6 text-primary font-bold text-xs uppercase tracking-widest hover:underline flex items-center gap-2"
+      >
+        <History className="w-4 h-4" />
+        Ver Historial Completo
+      </button>
 
       {/* Save Session Modal */}
       <AnimatePresence>
