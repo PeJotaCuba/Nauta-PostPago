@@ -39,7 +39,7 @@ export default function LoginPortal() {
           </button>
           <div className="flex-grow bg-surface-container-lowest rounded-lg px-3 py-1 flex items-center gap-2 border border-outline-variant/10">
             <Lock className="w-3 h-3 text-secondary fill-current" />
-            <span className="text-[10px] font-mono text-on-surface-variant truncate">https://secure.etecsa.net:8443/</span>
+            <span className="text-[10px] font-mono text-on-surface-variant truncate">https://secure.etecsa.net:8443//LoginServlet</span>
           </div>
         </div>
 
@@ -47,7 +47,7 @@ export default function LoginPortal() {
         <div className="flex-grow relative bg-white">
           <iframe 
             key={iframeKey}
-            src="https://secure.etecsa.net:8443/" 
+            src="https://secure.etecsa.net:8443//LoginServlet" 
             className="w-full h-full border-0"
             title="ETECSA Portal"
             sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
