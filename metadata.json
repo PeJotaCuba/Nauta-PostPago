@@ -1,0 +1,6 @@
+{
+  "name": "WiFi Time Keeper",
+  "description": "A precision utility for tracking WiFi session time and costs, featuring a digital chronometer and session history.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
